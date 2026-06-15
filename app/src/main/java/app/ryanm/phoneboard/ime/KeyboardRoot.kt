@@ -367,6 +367,7 @@ fun KeyButton(key: Key, kbController: KBController) {
                     }
                     Text(
                         down,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.align(Alignment.BottomCenter),
                         fontSize = 14.sp
                     )
@@ -383,6 +384,7 @@ fun KeyButton(key: Key, kbController: KBController) {
 
                     Text(
                         left,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier
                             .align(Alignment.CenterStart)
                             .padding(start = 8.dp),
@@ -401,6 +403,7 @@ fun KeyButton(key: Key, kbController: KBController) {
 
                     Text(
                         right,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .padding(end = 8.dp),

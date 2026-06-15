@@ -33,7 +33,7 @@ text = "c"
 [keys.actions.left]
 type = "text"
 text = ","
-shift = "?"
+shift = "$"
 
 [keys.actions.right]
 type = "text"
@@ -199,7 +199,7 @@ circle = false
 legend = "⚙"
 
 [keys.actions.tap]
-type = "right"
+type = "settings"
 #####
 
 ## Start Third Row
@@ -288,6 +288,7 @@ text = "j"
 [keys.actions.left]
 type = "text"
 text = "&"
+shift = "%"
 
 [keys.actions.right]
 type = "text"
@@ -361,6 +362,7 @@ text = "x"
 [keys.actions.left]
 type = "text"
 text = "/"
+shift = "|"
 
 [keys.actions.right]
 type = "text"
