@@ -1,0 +1,27 @@
+# IntelliJ / Android Studio
+*.iml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/deploymentTargetSelector.xml
+
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Local machine config
+local.properties
+
+# Android generated files
+captures/
+.externalNativeBuild/
+.cxx/
+
+# OS junk
+.DS_Store
+Thumbs.db

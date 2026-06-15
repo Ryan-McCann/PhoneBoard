@@ -1,0 +1,405 @@
+layout_id = "alpha"
+name = "Alpha"
+
+
+## Start first row
+[[keys]]
+id = "undo"
+shade = "dark"
+circle = false
+legend = "↺"
+
+[keys.actions.tap]
+type = "undo"
+
+[[keys]]
+id = "letter_s"
+shade = "light"
+circle = false
+legend = "s"
+
+[keys.actions.tap]
+type = "text"
+text = "s"
+
+[keys.actions.up]
+type = "text"
+text = "1"
+
+[keys.actions.down]
+type = "text"
+text = "c"
+
+[keys.actions.left]
+type = "text"
+text = ","
+shift = "?"
+
+[keys.actions.right]
+type = "text"
+text = "."
+shift = "!"
+
+[[keys]]
+id = "letter_h"
+shade = "light"
+circle = false
+legend = "h"
+
+[keys.actions.tap]
+type = "text"
+text = "h"
+
+[keys.actions.up]
+type = "text"
+text = "2"
+
+[keys.actions.down]
+type = "text"
+text = "m"
+
+[keys.actions.left]
+type = "text"
+text = "'"
+shift = "`"
+
+[keys.actions.right]
+type = "text"
+text = "\""
+shift = "~"
+
+[[keys]]
+id = "letter_r"
+shade = "light"
+circle = false
+legend = "r"
+
+[keys.actions.tap]
+type = "text"
+text = "r"
+
+[keys.actions.up]
+type = "text"
+text = "3"
+
+[keys.actions.down]
+type = "text"
+text = "w"
+
+[keys.actions.left]
+type = "text"
+text = "["
+
+[keys.actions.right]
+type = "text"
+text = "]"
+
+[[keys]]
+id = "backspace"
+shade = "dark"
+circle = false
+legend = "⌫"
+
+[keys.actions.tap]
+type = "backspace"
+#####
+
+## Start Second Row
+[[keys]]
+id = "emote"
+shade = "dark"
+circle = false
+legend = "☻"
+
+[keys.actions.tap]
+type = "emote"
+
+[[keys]]
+id = "letter_a"
+shade = "light"
+circle = false
+legend = "a"
+
+[keys.actions.tap]
+type = "text"
+text = "a"
+
+[keys.actions.up]
+type = "text"
+text = "4"
+
+[keys.actions.down]
+type = "text"
+text = "f"
+
+[keys.actions.left]
+type = "text"
+text = "("
+
+[keys.actions.right]
+type = "text"
+text = ")"
+
+[[keys]]
+id = "letter_e"
+shade = "light"
+circle = false
+legend = "e"
+
+[keys.actions.tap]
+type = "text"
+text = "e"
+
+[keys.actions.up]
+type = "text"
+text = "5"
+
+[keys.actions.down]
+type = "text"
+text = "g"
+
+[keys.actions.left]
+type = "text"
+text = "p"
+
+[keys.actions.right]
+type = "text"
+text = "b"
+
+[[keys]]
+id = "letter_t"
+shade = "light"
+circle = false
+legend = "t"
+
+[keys.actions.tap]
+type = "text"
+text = "t"
+
+[keys.actions.up]
+type = "text"
+text = "6"
+
+[keys.actions.down]
+type = "text"
+text = "y"
+
+[keys.actions.left]
+type = "text"
+text = "{"
+
+[keys.actions.right]
+type = "text"
+text = "}"
+
+[[keys]]
+id = "settings"
+shade = "dark"
+circle = false
+legend = "⚙"
+
+[keys.actions.tap]
+type = "right"
+#####
+
+## Start Third Row
+[[keys]]
+id = "shift"
+shade = "dark"
+circle = false
+legend = "⬆"
+shift = "⇧"
+caps = "⇪"
+
+[keys.actions.tap]
+type = "shift"
+
+[[keys]]
+id = "letter_o"
+shade = "light"
+circle = false
+legend = "o"
+
+[keys.actions.tap]
+type = "text"
+text = "o"
+
+[keys.actions.up]
+type = "text"
+text = "7"
+
+[keys.actions.down]
+type = "text"
+text = "v"
+
+[keys.actions.left]
+type = "text"
+text = "?"
+
+[keys.actions.right]
+type = "text"
+text = "@"
+
+[[keys]]
+id = "letter_i"
+shade = "light"
+circle = false
+legend = "i"
+
+[keys.actions.tap]
+type = "text"
+text = "i"
+
+[keys.actions.up]
+type = "text"
+text = "8"
+
+[keys.actions.down]
+type = "text"
+text = "k"
+
+[keys.actions.left]
+type = "text"
+text = "-"
+shift = "^"
+
+[keys.actions.right]
+type = "text"
+text = "_"
+
+[[keys]]
+id = "letter_n"
+shade = "light"
+circle = false
+legend = "n"
+
+[keys.actions.tap]
+type = "text"
+text = "n"
+
+[keys.actions.up]
+type = "text"
+text = "9"
+
+[keys.actions.down]
+type = "text"
+text = "j"
+
+[keys.actions.left]
+type = "text"
+text = "&"
+
+[keys.actions.right]
+type = "text"
+text = "+"
+
+[[keys]]
+id = "space"
+shade = "dark"
+circle = false
+legend = "␣"
+
+[keys.actions.tap]
+type = "space"
+#####
+
+## Start Fourth Row
+[[keys]]
+id = "switch"
+shade = "dark"
+circle = false
+legend = "?123"
+
+[keys.actions.tap]
+type = "switch"
+
+[[keys]]
+id = "letter_d"
+shade = "light"
+circle = false
+legend = "d"
+
+[keys.actions.tap]
+type = "text"
+text = "d"
+
+[keys.actions.up]
+type = "text"
+text = "*"
+
+[keys.actions.down]
+type = "text"
+text = "q"
+
+[keys.actions.left]
+type = "text"
+text = "="
+
+[keys.actions.right]
+type = "text"
+text = ";"
+shift = ":"
+
+[[keys]]
+id = "letter_l"
+shade = "light"
+circle = false
+legend = "l"
+
+[keys.actions.tap]
+type = "text"
+text = "l"
+
+[keys.actions.up]
+type = "text"
+text = "0"
+
+[keys.actions.down]
+type = "text"
+text = "x"
+
+[keys.actions.left]
+type = "text"
+text = "/"
+
+[keys.actions.right]
+type = "text"
+text = "\\"
+
+[[keys]]
+id = "letter_u"
+shade = "light"
+circle = false
+legend = "u"
+
+[keys.actions.tap]
+type = "text"
+text = "u"
+
+[keys.actions.up]
+type = "text"
+text = "#"
+
+[keys.actions.down]
+type = "text"
+text = "z"
+
+[keys.actions.left]
+type = "text"
+text = "<"
+
+[keys.actions.right]
+type = "text"
+text = ">"
+
+[[keys]]
+id = "submit"
+shade = "light"
+circle = true
+submit = true
+legend = "⏎"
+
+[keys.actions.tap]
+type = "submit"
+hold = true
+#####
