@@ -79,7 +79,13 @@ class KBController (private val emitIntent: (KBIntent) -> Unit, private val scop
         when(action.type) {
             "text" -> {
                 if(action.text != null) {
-                    val text = if(shifted != ShiftState.Off) action.text.uppercase() else action.text
+                    val text =
+                        when {
+                            shifted != ShiftState.Off && action.shift != null -> action.shift
+                            shifted != ShiftState.Off -> action.text.uppercase()
+                            else -> action.text
+                        }
+                        if(shifted != ShiftState.Off) action.text.uppercase() else action.text
 
                     if(shifted == ShiftState.Shift)
                         shifted = ShiftState.Off
