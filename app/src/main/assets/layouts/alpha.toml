@@ -1,5 +1,6 @@
 layout_id = "alpha"
 name = "Alpha"
+type = "standard"
 
 
 ## Start first row

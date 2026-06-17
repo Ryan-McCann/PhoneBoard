@@ -1,0 +1,207 @@
+layout_id = "alpha"
+name = "Alpha"
+type = "standard"
+
+
+## Start first row
+[[keys]]
+id = "undo"
+shade = "dark"
+circle = false
+legend = "↺"
+
+[keys.actions.tap]
+type = "undo"
+
+[[keys]]
+id = "num_1"
+shade = "light"
+circle = false
+legend = "1"
+
+[keys.actions.tap]
+type = "text"
+text = "1"
+
+[[keys]]
+id = "num_2"
+shade = "light"
+circle = false
+legend = "2"
+
+[keys.actions.tap]
+type = "text"
+text = "2"
+
+[[keys]]
+id = "num_3"
+shade = "light"
+circle = false
+legend = "3"
+
+[keys.actions.tap]
+type = "text"
+text = "3"
+
+[[keys]]
+id = "backspace"
+shade = "dark"
+circle = false
+legend = "⌫"
+
+[keys.actions.tap]
+type = "backspace"
+#####
+
+## Start Second Row
+[[keys]]
+id = "plus"
+shade = "dark"
+circle = false
+legend = "+"
+
+[keys.actions.tap]
+type = "text"
+text = "+"
+
+[[keys]]
+id = "num_4"
+shade = "light"
+circle = false
+legend = "4"
+
+[keys.actions.tap]
+type = "text"
+text = "4"
+
+[[keys]]
+id = "num_5"
+shade = "light"
+circle = false
+legend = "5"
+
+[keys.actions.tap]
+type = "text"
+text = "5"
+
+[[keys]]
+id = "num_6"
+shade = "light"
+circle = false
+legend = "6"
+
+[keys.actions.tap]
+type = "text"
+text = "6"
+
+[[keys]]
+id = "settings"
+shade = "dark"
+circle = false
+legend = "⚙"
+
+[keys.actions.tap]
+type = "settings"
+#####
+
+## Start Third Row
+[[keys]]
+id = "left"
+shade = "dark"
+circle = false
+legend = "◀"
+
+[keys.actions.tap]
+type = "move_left"
+
+[[keys]]
+id = "num_7"
+shade = "light"
+circle = false
+legend = "7"
+
+[keys.actions.tap]
+type = "text"
+text = "7"
+
+[[keys]]
+id = "num_8"
+shade = "light"
+circle = false
+legend = "8"
+
+[keys.actions.tap]
+type = "text"
+text = "8"
+
+[[keys]]
+id = "num_9"
+shade = "light"
+circle = false
+legend = "9"
+
+[keys.actions.tap]
+type = "text"
+text = "9"
+
+[[keys]]
+id = "right"
+shade = "dark"
+circle = false
+legend = "▶"
+
+[keys.actions.tap]
+type = "move_right"
+#####
+
+## Start Fourth Row
+[[keys]]
+id = "paste"
+shade = "dark"
+circle = false
+legend = "📋"
+
+[keys.actions.tap]
+type = "paste"
+
+[[keys]]
+id = "star"
+shade = "light"
+circle = false
+legend = "*"
+
+[keys.actions.tap]
+type = "text"
+text = "*"
+
+[[keys]]
+id = "num_0"
+shade = "light"
+circle = false
+legend = "0"
+
+[keys.actions.tap]
+type = "text"
+text = "0"
+
+[[keys]]
+id = "pound"
+shade = "light"
+circle = false
+legend = "#"
+
+[keys.actions.tap]
+type = "text"
+text = "#"
+
+[[keys]]
+id = "submit"
+shade = "light"
+circle = true
+submit = true
+legend = "⏎"
+
+[keys.actions.tap]
+type = "submit"
+hold = true
+#####

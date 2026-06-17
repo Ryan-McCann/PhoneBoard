@@ -53,7 +53,35 @@ import kotlin.math.absoluteValue
 @Composable
 fun KeyboardRoot(kbController: KBController) {
     MaterialTheme(colorScheme = GboardRedDark) {
-        KeyboardGrid(kbController)
+
+        when(kbController.currentLayout) {
+            LayoutState.Alpha -> {
+                val tomlFile = LocalContext.current.assets.open("layouts/alpha.toml")
+                val layout = loadTOML(tomlFile)
+
+                KeyboardGrid(kbController, layout)
+            }
+            LayoutState.Symbols -> {
+                val tomlFile = LocalContext.current.assets.open("layouts/symbols.toml")
+                val layout = loadTOML(tomlFile)
+
+                KeyboardGrid(kbController, layout)
+            }
+            LayoutState.Numeric -> {
+                val tomlFile = LocalContext.current.assets.open("layouts/numeric.toml")
+                val layout = loadTOML(tomlFile)
+
+                KeyboardGrid(kbController, layout)
+            }
+            LayoutState.Phone -> {
+                val tomlFile = LocalContext.current.assets.open("layouts/phone.toml")
+                val layout = loadTOML(tomlFile)
+
+                KeyboardGrid(kbController, layout)
+            }
+            LayoutState.Emote -> {
+            }
+        }
     }
 }
 
@@ -113,13 +141,37 @@ fun KeyButton(key: Key, kbController: KBController) {
                 CompositionLocalProvider(
                     LocalContentColor provides Color.White
                 ) {
-                    val legend = when(currentAction) {
-                        key.actions.tap -> key.legend
-                        key.actions.up -> key.actions.up.text!!
-                        key.actions.left -> key.actions.left.text!!
-                        key.actions.right -> key.actions.right.text!!
-                        key.actions.down -> key.actions.down.text!!
-                        else -> key.legend
+                    val legend: String = when(currentAction) {
+                        key.actions.tap -> when (kbController.shifted) {
+                            ShiftState.Off -> key.legend
+                            ShiftState.Shift -> key.shift ?: key.legend.uppercase()
+                            ShiftState.Caps -> key.caps ?: key.shift ?: key.legend.uppercase()
+                        }
+                        key.actions.up -> when (kbController.shifted) {
+                            ShiftState.Off -> key.actions.up.text!!
+                            ShiftState.Shift -> key.actions.up.shift ?: key.actions.up.text!!.uppercase()
+                            ShiftState.Caps -> key.actions.up.caps ?: key.actions.up.shift ?: key.actions.up.text!!.uppercase()
+                        }
+                        key.actions.left -> when (kbController.shifted) {
+                            ShiftState.Off -> key.actions.left.text!!
+                            ShiftState.Shift -> key.actions.left.shift ?: key.actions.left.text!!.uppercase()
+                            ShiftState.Caps -> key.actions.left.caps ?: key.actions.left.shift ?: key.actions.left.text!!.uppercase()
+                        }
+                        key.actions.right -> when (kbController.shifted) {
+                            ShiftState.Off -> key.actions.right.text!!
+                            ShiftState.Shift -> key.actions.right.shift ?: key.actions.right.text!!.uppercase()
+                            ShiftState.Caps -> key.actions.right.caps ?: key.actions.right.shift ?: key.actions.right.text!!.uppercase()
+                        }
+                        key.actions.down -> when (kbController.shifted) {
+                            ShiftState.Off -> key.actions.down.text!!
+                            ShiftState.Shift -> key.actions.down.shift ?: key.actions.down.text!!.uppercase()
+                            ShiftState.Caps -> key.actions.down.caps ?: key.actions.down.shift ?: key.actions.down.text!!.uppercase()
+                        }
+                        else -> when (kbController.shifted) {
+                            ShiftState.Off -> key.legend
+                            ShiftState.Shift -> key.shift ?: key.legend.uppercase()
+                            ShiftState.Caps -> key.caps ?: key.shift ?: key.legend.uppercase()
+                        }
                     }
 
                     if(currentAction == key.actions.tap) {
@@ -219,8 +271,8 @@ fun KeyButton(key: Key, kbController: KBController) {
             .background(bgColor)
             .drawWithContent {
                 drawContent()
-                if(hasAlternates && pressed) {
-                    when(currentAction) {
+                if (hasAlternates && pressed) {
+                    when (currentAction) {
                         key.actions.up -> {
                             val path = Path().apply {
                                 moveTo(size.width / 2f, size.height / 2f)
@@ -233,6 +285,7 @@ fun KeyButton(key: Key, kbController: KBController) {
                                 color = wedgeColor
                             )
                         }
+
                         key.actions.down -> {
                             val path = Path().apply {
                                 moveTo(size.width / 2f, size.height / 2f)
@@ -245,6 +298,7 @@ fun KeyButton(key: Key, kbController: KBController) {
                                 color = wedgeColor
                             )
                         }
+
                         key.actions.left -> {
                             val path = Path().apply {
                                 moveTo(size.width / 2f, size.height / 2f)
@@ -257,6 +311,7 @@ fun KeyButton(key: Key, kbController: KBController) {
                                 color = wedgeColor
                             )
                         }
+
                         key.actions.right -> {
                             val path = Path().apply {
                                 moveTo(size.width / 2f, size.height / 2f)
@@ -416,10 +471,7 @@ fun KeyButton(key: Key, kbController: KBController) {
 }
 
 @Composable
-fun KeyboardGrid(kbController: KBController) {
-    val tomlFile = LocalContext.current.assets.open("layouts/alpha.toml")
-    val layout = loadTOML(tomlFile)
-
+fun KeyboardGrid(kbController: KBController, layout: Layout) {
     Box(
         Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -450,6 +502,7 @@ fun KeyboardGrid(kbController: KBController) {
 @Composable
 fun KeyboardGridPreview() {
     val kbController = KBController({}, rememberCoroutineScope())
+    kbController.currentLayout = LayoutState.Phone
     KeyboardRoot(kbController)
 }
 

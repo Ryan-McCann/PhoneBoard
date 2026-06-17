@@ -36,7 +36,8 @@ data class Key (
 )
 
 data class Layout (
-    val keys: List<Key>
+    val keys: List<Key>,
+    val type: String
 )
 
 sealed interface KBIntent {
@@ -47,6 +48,14 @@ sealed interface KBIntent {
     data object SwitchLayout: KBIntent
 }
 
+enum class LayoutState {
+    Alpha,
+    Symbols,
+    Numeric,
+    Phone,
+    Emote
+}
+
 enum class ShiftState {
     Off,
     Shift,
@@ -54,9 +63,11 @@ enum class ShiftState {
 }
 
 class KBController (private val emitIntent: (KBIntent) -> Unit, private val scope: CoroutineScope) {
+
     private var repeatJob: Job? = null
 
     var shifted by mutableStateOf(ShiftState.Off)
+    var currentLayout by mutableStateOf(LayoutState.Alpha)
 
     fun pressStart(action: Action) {
 
