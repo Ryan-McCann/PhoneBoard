@@ -1,9 +1,6 @@
-layout_id = "alpha"
-name = "Alpha"
-type = "standard"
+layout_id = "symbols"
+name = "Symbols"
 
-
-## Start first row
 [[keys]]
 id = "undo"
 shade = "dark"
@@ -14,86 +11,54 @@ legend = "↺"
 type = "undo"
 
 [[keys]]
-id = "letter_s"
+id = "sym_period"
 shade = "light"
 circle = false
-legend = "s"
+legend = "."
 
 [keys.actions.tap]
-type = "text"
-text = "s"
-
-[keys.actions.up]
-type = "text"
-text = "1"
-
-[keys.actions.down]
-type = "text"
-text = "c"
-
-[keys.actions.left]
-type = "text"
-text = ","
-shift = "$"
-
-[keys.actions.right]
 type = "text"
 text = "."
-shift = "!"
-
-[[keys]]
-id = "letter_h"
-shade = "light"
-circle = false
-legend = "h"
-
-[keys.actions.tap]
-type = "text"
-text = "h"
-
-[keys.actions.up]
-type = "text"
-text = "2"
-
-[keys.actions.down]
-type = "text"
-text = "m"
 
 [keys.actions.left]
 type = "text"
-text = "'"
-shift = "`"
+text = ":"
 
 [keys.actions.right]
 type = "text"
-text = "\""
-shift = "~"
+text = ";"
 
 [[keys]]
-id = "letter_r"
+id = "sym_comma"
 shade = "light"
 circle = false
-legend = "r"
+legend = ","
 
 [keys.actions.tap]
 type = "text"
-text = "r"
-
-[keys.actions.up]
-type = "text"
-text = "3"
-
-[keys.actions.down]
-type = "text"
-text = "w"
+text = ","
 
 [keys.actions.left]
 type = "text"
-text = "["
+text = "<"
 
 [keys.actions.right]
 type = "text"
-text = "]"
+text = ">"
+
+[[keys]]
+id = "sym_bang"
+shade = "light"
+circle = false
+legend = "!"
+
+[keys.actions.tap]
+type = "text"
+text = "!"
+
+[keys.actions.left]
+type = "text"
+text = "~"
 
 [[keys]]
 id = "backspace"
@@ -103,9 +68,7 @@ legend = "⌫"
 
 [keys.actions.tap]
 type = "backspace"
-#####
 
-## Start Second Row
 [[keys]]
 id = "emote"
 shade = "dark"
@@ -116,82 +79,54 @@ legend = "☻"
 type = "emote"
 
 [[keys]]
-id = "letter_a"
+id = "sym_quote"
 shade = "light"
 circle = false
-legend = "a"
+legend = "'"
 
 [keys.actions.tap]
 type = "text"
-text = "a"
-
-[keys.actions.up]
-type = "text"
-text = "4"
-
-[keys.actions.down]
-type = "text"
-text = "f"
+text = "'"
 
 [keys.actions.left]
 type = "text"
-text = "("
+text = "\""
 
 [keys.actions.right]
 type = "text"
-text = ")"
+text = "`"
 
 [[keys]]
-id = "letter_e"
+id = "sym_at"
 shade = "light"
 circle = false
-legend = "e"
+legend = "@"
 
 [keys.actions.tap]
 type = "text"
-text = "e"
-
-[keys.actions.up]
-type = "text"
-text = "5"
-
-[keys.actions.down]
-type = "text"
-text = "g"
+text = "@"
 
 [keys.actions.left]
 type = "text"
-text = "p"
+text = "%"
 
 [keys.actions.right]
 type = "text"
-text = "b"
+text = "^"
 
 [[keys]]
-id = "letter_t"
+id = "sym_amp"
 shade = "light"
 circle = false
-legend = "t"
+legend = "&"
 
 [keys.actions.tap]
 type = "text"
-text = "t"
-
-[keys.actions.up]
-type = "text"
-text = "6"
-
-[keys.actions.down]
-type = "text"
-text = "y"
+text = "&"
 
 [keys.actions.left]
 type = "text"
-text = "{"
-
-[keys.actions.right]
-type = "text"
-text = "}"
+text = "*"
 
 [[keys]]
 id = "settings"
@@ -201,9 +136,7 @@ legend = "⚙"
 
 [keys.actions.tap]
 type = "settings"
-#####
 
-## Start Third Row
 [[keys]]
 id = "shift"
 shade = "dark"
@@ -216,84 +149,50 @@ caps = "⇪"
 type = "shift"
 
 [[keys]]
-id = "letter_o"
+id = "sym_dash"
 shade = "light"
 circle = false
-legend = "o"
+legend = "-"
 
 [keys.actions.tap]
-type = "text"
-text = "o"
-
-[keys.actions.up]
-type = "text"
-text = "7"
-
-[keys.actions.down]
-type = "text"
-text = "v"
-
-[keys.actions.left]
-type = "text"
-text = "?"
-
-[keys.actions.right]
-type = "text"
-text = "@"
-
-[[keys]]
-id = "letter_i"
-shade = "light"
-circle = false
-legend = "i"
-
-[keys.actions.tap]
-type = "text"
-text = "i"
-
-[keys.actions.up]
-type = "text"
-text = "8"
-
-[keys.actions.down]
-type = "text"
-text = "k"
-
-[keys.actions.left]
 type = "text"
 text = "-"
-shift = "^"
-
-[keys.actions.right]
-type = "text"
-text = "_"
-
-[[keys]]
-id = "letter_n"
-shade = "light"
-circle = false
-legend = "n"
-
-[keys.actions.tap]
-type = "text"
-text = "n"
-
-[keys.actions.up]
-type = "text"
-text = "9"
-
-[keys.actions.down]
-type = "text"
-text = "j"
 
 [keys.actions.left]
 type = "text"
-text = "&"
-shift = "%"
+text = "_"
 
 [keys.actions.right]
 type = "text"
 text = "+"
+
+[[keys]]
+id = "sym_equal"
+shade = "light"
+circle = false
+legend = "="
+
+[keys.actions.tap]
+type = "text"
+text = "="
+
+[[keys]]
+id = "sym_pipe"
+shade = "light"
+circle = false
+legend = "|"
+
+[keys.actions.tap]
+type = "text"
+text = "|"
+
+[keys.actions.left]
+type = "text"
+text = "/"
+
+[keys.actions.right]
+type = "text"
+text = "\\"
 
 [[keys]]
 id = "space"
@@ -303,97 +202,69 @@ legend = "␣"
 
 [keys.actions.tap]
 type = "space"
-#####
 
-## Start Fourth Row
 [[keys]]
 id = "switch"
 shade = "dark"
 circle = false
-legend = "?123"
+legend = "ABC"
 
 [keys.actions.tap]
 type = "switch"
 
 [[keys]]
-id = "letter_d"
+id = "sym_question"
 shade = "light"
 circle = false
-legend = "d"
+legend = "?"
 
 [keys.actions.tap]
 type = "text"
-text = "d"
-
-[keys.actions.up]
-type = "text"
-text = "*"
-
-[keys.actions.down]
-type = "text"
-text = "q"
+text = "?"
 
 [keys.actions.left]
 type = "text"
-text = "="
+text = "("
 
 [keys.actions.right]
 type = "text"
-text = ";"
-shift = ":"
+text = ")"
 
 [[keys]]
-id = "letter_l"
+id = "sym_hash"
 shade = "light"
 circle = false
-legend = "l"
+legend = "#"
 
 [keys.actions.tap]
-type = "text"
-text = "l"
-
-[keys.actions.up]
-type = "text"
-text = "0"
-
-[keys.actions.down]
-type = "text"
-text = "x"
-
-[keys.actions.left]
-type = "text"
-text = "/"
-shift = "|"
-
-[keys.actions.right]
-type = "text"
-text = "\\"
-
-[[keys]]
-id = "letter_u"
-shade = "light"
-circle = false
-legend = "u"
-
-[keys.actions.tap]
-type = "text"
-text = "u"
-
-[keys.actions.up]
 type = "text"
 text = "#"
 
-[keys.actions.down]
-type = "text"
-text = "z"
-
 [keys.actions.left]
 type = "text"
-text = "<"
+text = "["
 
 [keys.actions.right]
 type = "text"
-text = ">"
+text = "]"
+
+[[keys]]
+id = "sym_dollar"
+shade = "light"
+circle = false
+legend = "$"
+
+[keys.actions.tap]
+type = "text"
+text = "$"
+
+[keys.actions.left]
+type = "text"
+text = "{"
+
+[keys.actions.right]
+type = "text"
+text = "}"
 
 [[keys]]
 id = "submit"
@@ -405,4 +276,3 @@ legend = "⏎"
 [keys.actions.tap]
 type = "submit"
 hold = true
-#####

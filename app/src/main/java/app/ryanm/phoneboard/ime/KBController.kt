@@ -36,16 +36,18 @@ data class Key (
 )
 
 data class Layout (
-    val keys: List<Key>,
-    val type: String
+    val keys: List<Key>
 )
 
 sealed interface KBIntent {
     data class CommitText(val text: String) : KBIntent
     data object Backspace: KBIntent
+    data object Undo: KBIntent
     data object Enter: KBIntent
     data object OpenSettings: KBIntent
     data object SwitchLayout: KBIntent
+    data object MoveLeft: KBIntent
+    data object MoveRight: KBIntent
 }
 
 enum class LayoutState {
@@ -107,6 +109,9 @@ class KBController (private val emitIntent: (KBIntent) -> Unit, private val scop
             "space" -> {
                 emitIntent(KBIntent.CommitText(" "))
             }
+            "undo" -> {
+                emitIntent(KBIntent.Undo)
+            }
             "submit" -> {
                 emitIntent(KBIntent.Enter)
             }
@@ -116,6 +121,15 @@ class KBController (private val emitIntent: (KBIntent) -> Unit, private val scop
                     ShiftState.Shift -> ShiftState.Caps
                     ShiftState.Caps -> ShiftState.Off
                 }
+            }
+            "switch" -> {
+                emitIntent(KBIntent.SwitchLayout)
+            }
+            "move_left" -> {
+                emitIntent(KBIntent.MoveLeft)
+            }
+            "move_right" -> {
+                emitIntent(KBIntent.MoveRight)
             }
         }
 

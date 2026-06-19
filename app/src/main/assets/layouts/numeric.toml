@@ -1,6 +1,5 @@
 layout_id = "alpha"
 name = "Alpha"
-type = "standard"
 
 
 ## Start first row
@@ -55,14 +54,14 @@ type = "backspace"
 
 ## Start Second Row
 [[keys]]
-id = "plus"
+id = "decimal"
 shade = "dark"
 circle = false
-legend = "+"
+legend = "."
 
 [keys.actions.tap]
 type = "text"
-text = "+"
+text = "."
 
 [[keys]]
 id = "num_4"
@@ -106,13 +105,14 @@ type = "settings"
 
 ## Start Third Row
 [[keys]]
-id = "left"
+id = "left_paren"
 shade = "dark"
 circle = false
-legend = "◀"
+legend = "("
 
 [keys.actions.tap]
-type = "move_left"
+type = "text"
+text = "("
 
 [[keys]]
 id = "num_7"
@@ -145,13 +145,14 @@ type = "text"
 text = "9"
 
 [[keys]]
-id = "right"
+id = "right_paren"
 shade = "dark"
 circle = false
-legend = "▶"
+legend = ")"
 
 [keys.actions.tap]
-type = "move_right"
+type = "text"
+text = ")"
 #####
 
 ## Start Fourth Row
@@ -165,14 +166,14 @@ legend = "📋"
 type = "paste"
 
 [[keys]]
-id = "star"
+id = "plus"
 shade = "light"
 circle = false
-legend = "*"
+legend = "+"
 
 [keys.actions.tap]
 type = "text"
-text = "*"
+text = "+"
 
 [[keys]]
 id = "num_0"
@@ -185,14 +186,14 @@ type = "text"
 text = "0"
 
 [[keys]]
-id = "pound"
+id = "minus"
 shade = "light"
 circle = false
-legend = "#"
+legend = "-"
 
 [keys.actions.tap]
 type = "text"
-text = "#"
+text = "-"
 
 [[keys]]
 id = "submit"

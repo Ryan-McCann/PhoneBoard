@@ -1,8 +1,11 @@
 package app.ryanm.phoneboard.ime
 
+import android.text.InputType
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.EditorInfo.IME_ACTION_NONE
+import android.view.inputmethod.ExtractedTextRequest
+import androidx.compose.ui.input.key.KeyEvent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -37,6 +40,18 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
     override fun onCreate() {
         super.onCreate()
         savedStateRegistryController.performRestore(null)
+    }
+
+    override fun onStartInputView(editorInfo: EditorInfo?, restarting: Boolean) {
+        super.onStartInputView(editorInfo, restarting)
+
+        kbController.currentLayout = when(editorInfo?.inputType?.and(InputType.TYPE_MASK_CLASS)) {
+            InputType.TYPE_CLASS_NUMBER -> LayoutState.Numeric
+
+            InputType.TYPE_CLASS_PHONE -> LayoutState.Phone
+
+            else -> LayoutState.Alpha
+        }
     }
 
     override fun onFinishInput() {
@@ -74,6 +89,8 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
                 else
                     currentInputConnection.deleteSurroundingText(1, 0)
             }
+            KBIntent.Undo -> {
+            }
             KBIntent.Enter -> {
                 val actionId = currentInputEditorInfo.imeOptions and EditorInfo.IME_MASK_ACTION
                 val hasAction = actionId != IME_ACTION_NONE
@@ -89,7 +106,21 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
             }
 
             KBIntent.SwitchLayout -> {
+                if(kbController.currentLayout == LayoutState.Alpha)
+                    kbController.currentLayout = LayoutState.Symbols
+                else
+                    kbController.currentLayout = LayoutState.Alpha
+            }
 
+            KBIntent.MoveLeft -> {
+                val curPos = currentInputConnection.getExtractedText(ExtractedTextRequest(), 0).selectionStart ?: return
+
+                currentInputConnection.setSelection(curPos-1, curPos-1)
+            }
+            KBIntent.MoveRight -> {
+                val curPos = currentInputConnection.getExtractedText(ExtractedTextRequest(), 0).selectionStart ?: return
+
+                currentInputConnection.setSelection(curPos+1, curPos+1)
             }
         }
     }

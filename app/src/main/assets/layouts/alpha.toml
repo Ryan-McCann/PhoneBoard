@@ -1,6 +1,5 @@
 layout_id = "alpha"
 name = "Alpha"
-type = "standard"
 
 
 ## Start first row
@@ -310,7 +309,7 @@ type = "space"
 id = "switch"
 shade = "dark"
 circle = false
-legend = "?123"
+legend = "?*/"
 
 [keys.actions.tap]
 type = "switch"
