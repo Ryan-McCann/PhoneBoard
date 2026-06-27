@@ -70,6 +70,7 @@ class KBController (private val emitIntent: (KBIntent) -> Unit, private val scop
 
     var shifted by mutableStateOf(ShiftState.Off)
     var currentLayout by mutableStateOf(LayoutState.Alpha)
+    var suggestions by mutableStateOf<List<String>>(emptyList())
 
     fun pressStart(action: Action) {
 

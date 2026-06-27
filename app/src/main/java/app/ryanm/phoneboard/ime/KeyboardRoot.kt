@@ -3,13 +3,17 @@ package app.ryanm.phoneboard.ime
 import GboardRedDark
 import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -35,9 +40,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -382,115 +389,160 @@ fun KeyButton(key: Key, kbController: KBController) {
         contentAlignment = Alignment.Center,
         propagateMinConstraints = true
     ) {
-        CompositionLocalProvider(
-            LocalContentColor provides Color.LightGray
-        ) {
-            Box(Modifier.fillMaxSize()) {
-                val legend = when (kbController.shifted) {
-                    ShiftState.Off -> key.legend
-                    ShiftState.Shift -> key.shift ?: key.legend.uppercase()
-                    ShiftState.Caps -> key.caps ?: key.shift ?: key.legend.uppercase()
+
+        Box(Modifier.fillMaxSize()) {
+            val legend = when (kbController.shifted) {
+                ShiftState.Off -> key.legend
+                ShiftState.Shift -> key.shift ?: key.legend.uppercase()
+                ShiftState.Caps -> key.caps ?: key.shift ?: key.legend.uppercase()
+            }
+
+            Text(
+                legend,
+                modifier = Modifier.align(Alignment.Center),
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold
+            )
+            if (key.actions.up != null && key.actions.up.text != null) {
+                val up = when (kbController.shifted) {
+                    ShiftState.Off -> key.actions.up.text
+                    ShiftState.Shift -> key.actions.up.shift ?: key.actions.up.text.uppercase()
+                    ShiftState.Caps -> key.actions.up.caps ?: key.actions.up.shift
+                    ?: key.actions.up.text.uppercase()
+                }
+                Text(
+                    up,
+                    modifier = Modifier.align(TopCenter),
+                    fontWeight = FontWeight.Thin,
+                    fontSize = 14.sp
+                )
+            }
+            if (key.actions.down != null && key.actions.down.text != null) {
+                val down = when (kbController.shifted) {
+                    ShiftState.Off -> key.actions.down.text
+                    ShiftState.Shift -> key.actions.down.shift
+                        ?: key.actions.down.text.uppercase()
+
+                    ShiftState.Caps -> key.actions.down.caps ?: key.actions.down.shift
+                    ?: key.actions.down.text.uppercase()
+                }
+                Text(
+                    down,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    fontSize = 14.sp
+                )
+            }
+            if (key.actions.left != null && key.actions.left.text != null) {
+                val left = when (kbController.shifted) {
+                    ShiftState.Off -> key.actions.left.text
+                    ShiftState.Shift -> key.actions.left.shift
+                        ?: key.actions.left.text.uppercase()
+
+                    ShiftState.Caps -> key.actions.left.caps ?: key.actions.left.shift
+                    ?: key.actions.left.text.uppercase()
                 }
 
                 Text(
-                    legend,
-                    modifier = Modifier.align(Alignment.Center),
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold
+                    left,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 8.dp),
+                    fontSize = 14.sp
                 )
-                if (key.actions.up != null && key.actions.up.text != null) {
-                    val up = when (kbController.shifted) {
-                        ShiftState.Off -> key.actions.up.text
-                        ShiftState.Shift -> key.actions.up.shift ?: key.actions.up.text.uppercase()
-                        ShiftState.Caps -> key.actions.up.caps ?: key.actions.up.shift
-                        ?: key.actions.up.text.uppercase()
-                    }
-                    Text(
-                        up,
-                        modifier = Modifier.align(TopCenter),
-                        fontWeight = FontWeight.Thin,
-                        fontSize = 14.sp
-                    )
-                }
-                if (key.actions.down != null && key.actions.down.text != null) {
-                    val down = when (kbController.shifted) {
-                        ShiftState.Off -> key.actions.down.text
-                        ShiftState.Shift -> key.actions.down.shift
-                            ?: key.actions.down.text.uppercase()
-
-                        ShiftState.Caps -> key.actions.down.caps ?: key.actions.down.shift
-                        ?: key.actions.down.text.uppercase()
-                    }
-                    Text(
-                        down,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        fontSize = 14.sp
-                    )
-                }
-                if (key.actions.left != null && key.actions.left.text != null) {
-                    val left = when (kbController.shifted) {
-                        ShiftState.Off -> key.actions.left.text
-                        ShiftState.Shift -> key.actions.left.shift
-                            ?: key.actions.left.text.uppercase()
-
-                        ShiftState.Caps -> key.actions.left.caps ?: key.actions.left.shift
-                        ?: key.actions.left.text.uppercase()
-                    }
-
-                    Text(
-                        left,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .align(Alignment.CenterStart)
-                            .padding(start = 8.dp),
-                        fontSize = 14.sp
-                    )
-                }
-                if (key.actions.right != null && key.actions.right.text != null) {
-                    val right = when (kbController.shifted) {
-                        ShiftState.Off -> key.actions.right.text
-                        ShiftState.Shift -> key.actions.right.shift
-                            ?: key.actions.right.text.uppercase()
-
-                        ShiftState.Caps -> key.actions.right.caps ?: key.actions.right.shift
+            }
+            if (key.actions.right != null && key.actions.right.text != null) {
+                val right = when (kbController.shifted) {
+                    ShiftState.Off -> key.actions.right.text
+                    ShiftState.Shift -> key.actions.right.shift
                         ?: key.actions.right.text.uppercase()
-                    }
 
-                    Text(
-                        right,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .padding(end = 8.dp),
-                        fontSize = 14.sp
-                    )
+                    ShiftState.Caps -> key.actions.right.caps ?: key.actions.right.shift
+                    ?: key.actions.right.text.uppercase()
                 }
+
+                Text(
+                    right,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 8.dp),
+                    fontSize = 14.sp
+                )
             }
         }
     }
 }
 
 @Composable
+fun TopToolBar(kbController: KBController) {
+    val haptics = LocalHapticFeedback.current
+
+    Row (
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        if(kbController.currentLayout == LayoutState.Alpha && kbController.suggestions.isNotEmpty()) {
+            kbController.suggestions.forEachIndexed { index, suggestion ->
+                Box(
+                    Modifier
+                        .weight(1f)
+                        .clickable {
+                            haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        },
+                    contentAlignment = Alignment.Center) {
+                    Text(suggestion)
+
+                    if(index < 2 && kbController.suggestions.size > 1)
+                        VerticalDivider(
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .height(28.dp),
+                            color = Color.LightGray.copy(alpha = 0.45f)
+                        )
+                }
+            }
+        } else {
+            // TODO: Add a default topbar when no suggestions are shown
+        }
+    }
+}
+
+@Composable
 fun KeyboardGrid(kbController: KBController, layout: Layout) {
-    Box(
-        Modifier
-            .background(MaterialTheme.colorScheme.background)
+    CompositionLocalProvider(
+        LocalContentColor provides Color.LightGray
     ) {
-        Column(
+        Box(
             Modifier
+                .background(MaterialTheme.colorScheme.background)
                 .padding(bottom = 60.dp)
         ) {
-            layout.keys.chunked(5).forEach { rowKeys ->
-                Row(
-                    modifier = Modifier
+            Column {
+                Box(
+                    Modifier
                         .fillMaxWidth()
-                        .height(100.dp),
-                    horizontalArrangement = spacedBy(4.dp)
+                        .height(48.dp)
+                        .padding(horizontal = 8.dp),
+                    contentAlignment = Alignment.Center
                 ) {
-                    rowKeys.forEach { key ->
-                        Column(Modifier.weight(1f)) {
-                            KeyButton(key, kbController)
+                    TopToolBar(kbController)
+                }
+
+                layout.keys.chunked(5).forEach { rowKeys ->
+                    Row(
+                        Modifier.padding(horizontal = 2.dp)
+                    ) {
+                        rowKeys.forEach { key ->
+                            Column(
+                                Modifier
+                                    .weight(1f)
+                                    .padding(2.dp)
+                                    .aspectRatio(1f)
+                            ) {
+                                KeyButton(key, kbController)
+                            }
                         }
                     }
                 }
@@ -503,7 +555,7 @@ fun KeyboardGrid(kbController: KBController, layout: Layout) {
 @Composable
 fun KeyboardGridPreview() {
     val kbController = KBController({}, rememberCoroutineScope())
-    kbController.currentLayout = LayoutState.Alpha
+    kbController.currentLayout = LayoutState.Phone
     KeyboardRoot(kbController)
 }
 

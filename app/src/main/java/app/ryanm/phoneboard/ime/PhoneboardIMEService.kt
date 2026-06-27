@@ -26,6 +26,8 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val kbController: KBController = KBController(::handleIntent, scope)
 
+    private val dictionary = FlatTrie.loadfromAssets(this, "dicts/dict.trie")
+
     override fun onCreateInputView(): View {
         val view = ComposeKeyboardView(this, kbController)
 
@@ -77,6 +79,44 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
 
     override val savedStateRegistry: SavedStateRegistry get() = savedStateRegistryController.savedStateRegistry
 
+    private fun isWordChar(ch: Char): Boolean {
+        return ch.isLetter() || ch == '\'' || ch == '-'
+    }
+
+    private fun extractCurrentWord(): String {
+        val lineStart = currentInputConnection
+            .getTextBeforeCursor(64, 0)
+            ?.toString()
+            .orEmpty()
+
+        val lineEnd = currentInputConnection
+            .getTextAfterCursor(64, 0)
+            ?.toString()
+            .orEmpty()
+
+        val start = lineStart.indexOfLast { !isWordChar(it)} + 1
+        val wordStart = lineStart.substring(start)
+
+        val end = lineEnd.indexOfFirst { !isWordChar(it) }
+
+        val wordEnd =
+            if(end > -1)
+                lineEnd.substring(0, end)
+            else
+                lineEnd
+
+        return wordStart + wordEnd
+    }
+
+    private fun refreshSuggestions() {
+        val word = extractCurrentWord()
+
+        kbController.suggestions = if(word.isNotEmpty() && kbController.currentLayout == LayoutState.Alpha)
+            listOf(word)
+        else
+            emptyList()
+    }
+
     private fun handleIntent(intent: KBIntent) {
         when(intent) {
             is KBIntent.CommitText -> {
@@ -123,6 +163,8 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
                 currentInputConnection.setSelection(curPos+1, curPos+1)
             }
         }
+
+        refreshSuggestions()
     }
 
 }
