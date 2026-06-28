@@ -490,6 +490,7 @@ fun TopToolBar(kbController: KBController) {
                         .weight(1f)
                         .clickable {
                             haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            kbController.pressEnd(Action(type = "suggestion", text = suggestion))
                         },
                     contentAlignment = Alignment.Center) {
                     Text(suggestion)

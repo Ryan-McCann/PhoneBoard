@@ -1,5 +1,6 @@
 package app.ryanm.phoneboard.ime
 
+import android.view.inputmethod.InlineSuggestion
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -48,6 +49,7 @@ sealed interface KBIntent {
     data object SwitchLayout: KBIntent
     data object MoveLeft: KBIntent
     data object MoveRight: KBIntent
+    data class ReplaceCurrentWord(val suggestion: String): KBIntent
 }
 
 enum class LayoutState {
@@ -131,6 +133,11 @@ class KBController (private val emitIntent: (KBIntent) -> Unit, private val scop
             }
             "move_right" -> {
                 emitIntent(KBIntent.MoveRight)
+            }
+            "suggestion" -> {
+                action.text?.let {
+                    emitIntent(KBIntent.ReplaceCurrentWord(it))
+                }
             }
         }
 

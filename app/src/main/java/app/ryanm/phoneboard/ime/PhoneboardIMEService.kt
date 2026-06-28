@@ -142,6 +142,26 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
             is KBIntent.CommitText -> {
                 currentInputConnection.commitText(intent.text, 1)
             }
+            is KBIntent.ReplaceCurrentWord -> {
+                val lineStart = currentInputConnection
+                    .getTextBeforeCursor(64, 0)
+                    ?.toString()
+                    .orEmpty()
+
+                val lineEnd = currentInputConnection
+                    .getTextAfterCursor(64, 0)
+                    ?.toString()
+                    .orEmpty()
+
+                val start = lineStart.indexOfLast { !isWordChar(it)} + 1
+                val end = lineEnd.indexOfFirst { !isWordChar(it) }
+
+                val leftLen = lineStart.length - start
+                val rightLen = if (end == -1) lineEnd.length else end
+
+                currentInputConnection.deleteSurroundingText(leftLen, rightLen)
+                currentInputConnection.commitText(intent.suggestion, 1)
+            }
             KBIntent.Backspace -> {
                 val selectedText = currentInputConnection.getSelectedText(0)
                 if(selectedText != "" && selectedText != null)
