@@ -1,6 +1,7 @@
 package app.ryanm.phoneboard.ime
 
 import android.text.InputType
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.EditorInfo.IME_ACTION_NONE
@@ -18,6 +19,9 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.collections.flatten
 
 class PhoneboardIMEService: PhoneboardLifecycleService(),
     ViewModelStoreOwner,
@@ -26,7 +30,7 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val kbController: KBController = KBController(::handleIntent, scope)
 
-    private val dictionary = FlatTrie.loadfromAssets(this, "dicts/dict.trie")
+    private var dictionary: FlatTrie? = null
 
     override fun onCreateInputView(): View {
         val view = ComposeKeyboardView(this, kbController)
@@ -42,6 +46,21 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
     override fun onCreate() {
         super.onCreate()
         savedStateRegistryController.performRestore(null)
+
+        scope.launch(Dispatchers.IO) {
+            val loaded = FlatTrie.loadfromAssets(
+                this@PhoneboardIMEService,
+                "dicts/dict.trie"
+            )
+
+            Log.d("FlatTrie", "nodes=${loaded.firstChild.size}, edges=${loaded.edgeChild.size}")
+            Log.d("FlatTrie", "xyloph=${loaded.suggest("xyloph")}")
+            Log.d("FlatTrie", "the=${loaded.suggest("the")}")
+
+            withContext(Dispatchers.Main) {
+                dictionary = loaded
+            }
+        }
     }
 
     override fun onStartInputView(editorInfo: EditorInfo?, restarting: Boolean) {
@@ -80,7 +99,7 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
     override val savedStateRegistry: SavedStateRegistry get() = savedStateRegistryController.savedStateRegistry
 
     private fun isWordChar(ch: Char): Boolean {
-        return ch.isLetter() || ch == '\'' || ch == '-'
+        return ch.isLetter() || ch == '\''
     }
 
     private fun extractCurrentWord(): String {
@@ -111,8 +130,9 @@ class PhoneboardIMEService: PhoneboardLifecycleService(),
     private fun refreshSuggestions() {
         val word = extractCurrentWord()
 
-        kbController.suggestions = if(word.isNotEmpty() && kbController.currentLayout == LayoutState.Alpha)
-            listOf(word)
+        kbController.suggestions = if(word.isNotEmpty() && kbController.currentLayout == LayoutState.Alpha) {
+            (listOf(word) + (dictionary?.suggest(word) ?: emptyList())).distinct()
+        }
         else
             emptyList()
     }
